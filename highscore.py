@@ -6,7 +6,10 @@ class Highscore:
   def __init__(self, score):
     self.score = score
     self.scoreFile = shelve.open('score.txt')
-    self.current_HighScore = self.scoreFile['score']
+    try:
+      self.current_HighScore = self.scoreFile['score']
+    except KeyError:
+      self.current_HighScore = 0
   
   def save_highscore(self):
     self.scoreFile['score'] = self.score
