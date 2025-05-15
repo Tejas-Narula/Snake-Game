@@ -1,0 +1,63 @@
+import pygame
+
+# --- constants --- (UPPER_CASE_NAMES)
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+FPS = 25
+
+GRAY_1 = (128,128,128)
+GRAY_2 = (192,192,192)
+
+# --- main ---
+
+pygame.init()
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+# ---
+
+background = pygame.surface.Surface(screen.get_size())
+
+color = GRAY_1
+for x in range(0, SCREEN_WIDTH, 40):
+    for y in range(0, SCREEN_HEIGHT, 40):
+        pygame.draw.rect(background, color, [x, y, 40, 40])
+        if color == GRAY_1:
+            color = GRAY_2
+        else:
+            color = GRAY_1
+
+
+
+# --- mainloop ---
+
+clock = pygame.time.Clock()
+
+running = True
+while running:
+
+    # --- events ---
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+
+    # --- draws ---
+
+    screen.blit(background, (0,0))
+
+    pygame.display.flip()
+
+    # --- FPS ---
+
+    ms = clock.tick(FPS)
+
+# --- end ---
+
+pygame.quit()
